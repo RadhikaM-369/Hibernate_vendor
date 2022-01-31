@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +21,11 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "vendor_info")
+@NamedQueries({
+	@NamedQuery(name="findLogin", query="select vendor from VendorEntity as vendor where vendor.loginName=:ln and vendor.password=:ps"),
+	@NamedQuery(name="findByEmail", query="select vendor from VendorEntity as vendor where vendor.email=:em"),
+	@NamedQuery(name="updatePasswordbyEmail", query="update VendorEntity set password=:pswdd where email=:em")
+	})
 public class VendorEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
